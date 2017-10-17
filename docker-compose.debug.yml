@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  airflow-devamb:
+    image: airflow-devamb
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
