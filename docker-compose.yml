@@ -5,10 +5,10 @@ services:
     image: marcusrehm/airflow-dev-env
     build: .
       args:
-        - AIRFLOW_VERSION:1.8.2
-        - AIRFLOW_HOME:/usr/local/airflow
+        - AIRFLOW_VERSION: 1.8.2
+        - AIRFLOW_HOME: /usr/local/airflow
     ports:
       - 8080:8080
     volumes:
-      - /home/marcus/airflow/dags/:${AIRFLOW_HOME}/dags:rw
-      - /home/marcus/airflow/db/:${AIRFLOW_HOME}/db:rw
+      - /home/marcus/airflow/dags/:/usr/local/airflow/dags:rw
+      - /home/marcus/airflow/db/:/usr/local/airflow/db:rw

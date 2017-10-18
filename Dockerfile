@@ -2,6 +2,7 @@ FROM python:3.6-slim
 LABEL Name=marcusrehm/airflow-dev-env Version=0.0.1 AUTHOR=MarcusRehm
 
 ARG AIRFLOW_HOME=/usr/local/airflow
+ARG AIRFLOW_VERSION=1.8.2
 
 # Never prompts the user for choices on installation/configuration of packages
 ENV DEBIAN_FRONTEND noninteractive
