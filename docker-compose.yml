@@ -1,8 +1,14 @@
 version: '2.1'
 
 services:
-  airflow-devamb:
-    image: airflow-devamb
+  airflow-dev-env:
+    image: marcusrehm/airflow-dev-env
     build: .
+      args:
+        - AIRFLOW_VERSION:1.8.2
+        - AIRFLOW_HOME:/usr/local/airflow
     ports:
       - 8080:8080
+    volumes:
+      - /home/marcus/airflow/dags/:${AIRFLOW_HOME}/dags:rw
+      - /home/marcus/airflow/db/:${AIRFLOW_HOME}/db:rw

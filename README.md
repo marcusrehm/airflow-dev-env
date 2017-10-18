@@ -1,20 +1,21 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Apache Airflow develop environment
+#### A simple container to run Apache Airflow on Windows machines.
+
+The main goal is create a minimal setup where Airflow can be hosted on Windows machines. This docker image has Airflow 1.8.2 installed using `pip install apache-airflow[crypto,postgres,hive,jdbc]` and running with SequentialExecutor and `SQLite` as backend.
+
+Tested on Windows 7, Windows 10 and Ubuntu 14.02 LTS.
+
+This project is based on [docker-airflow](https://github.com/puckel/docker-airflow) image which is a great work.
 
 # Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+The image has two volumes:
+- `usr/local/airflow/dags`: Should be mapped to the dags directory in your host machine.
+- `usr/local/airflow/db`: Used to store `SQLite` database. If you need to remove the container or rebuild image, data (variable, connections, etc) used to develop and test is saved. 
 
 # Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+```
+docker build --rm -t marcusrehm/airflow-dev-env .
+```
 
 # Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://www.visualstudio.com/en-us/docs/git/create-a-readme). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+Feel free to fork, improve and PR.

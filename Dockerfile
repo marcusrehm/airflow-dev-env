@@ -1,19 +1,11 @@
-# VERSION 1.8.1-1
-# AUTHOR: Matthieu "Puckel_" Roisil
-# DESCRIPTION: Basic Airflow container
-# BUILD: docker build --rm -t puckel/docker-airflow .
-# SOURCE: https://github.com/puckel/docker-airflow
-
 FROM python:3.6-slim
-MAINTAINER MarcuaRehm
+LABEL Name=marcusrehm/airflow-dev-env Version=0.0.1 AUTHOR=MarcusRehm
+
+ARG AIRFLOW_HOME=/usr/local/airflow
 
 # Never prompts the user for choices on installation/configuration of packages
 ENV DEBIAN_FRONTEND noninteractive
 ENV TERM linux
-
-# Airflow
-ARG AIRFLOW_VERSION=1.8.2
-ARG AIRFLOW_HOME=/usr/local/airflow
 
 # Define en_US.
 ENV LANGUAGE en_US.UTF-8
@@ -74,6 +66,8 @@ RUN chown -R airflow: ${AIRFLOW_HOME}
 
 RUN mkdir ${AIRFLOW_HOME}/db
 RUN chown -R airflow: ${AIRFLOW_HOME}/db
+
+RUN chown -R airflow: /entrypoint.sh
 
 EXPOSE 8080
 
