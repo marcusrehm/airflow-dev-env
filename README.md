@@ -12,6 +12,8 @@ The image has two volumes:
 - `usr/local/airflow/dags`: Should be mapped to the dags directory in your host machine.
 - `usr/local/airflow/db`: Used to store `SQLite` database. If you need to remove the container or rebuild image, data (variable, connections, etc) used to develop and test is saved. 
 
+If you are running it on Ubuntu you'll need to give write access to docker group to folders in your local machine where you mapped volumes above. 
+
 # Build and Test
 ```
 docker build --rm -t marcusrehm/airflow-dev-env .
