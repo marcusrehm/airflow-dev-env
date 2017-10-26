@@ -15,6 +15,13 @@ ENV LC_ALL en_US.UTF-8
 ENV LC_CTYPE en_US.UTF-8
 ENV LC_MESSAGES en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
+ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
+
+# Install Java
+RUN apt-get update \
+    && apt-get install -y openjdk-7-jre \
+    && update-alternatives --config java \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN set -ex \
     && buildDeps=' \
