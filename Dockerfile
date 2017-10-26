@@ -57,6 +57,7 @@ RUN set -ex \
     && pip install pyasn1 \
     && pip install azure-storage \
     && pip install apache-airflow[crypto,postgres,hive,jdbc]==$AIRFLOW_VERSION \
+    && pip install JayDeBeApi==0.2.0\
     && apt-get purge --auto-remove -yqq $buildDeps \
     && apt-get clean \
     && rm -rf \
