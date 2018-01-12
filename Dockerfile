@@ -2,7 +2,7 @@ FROM python:3.6-slim
 LABEL Name=marcusrehm/airflow-dev-env Version=0.0.1 AUTHOR=MarcusRehm
 
 ARG AIRFLOW_HOME=/usr/local/airflow
-ARG AIRFLOW_VERSION=1.8.2
+ARG AIRFLOW_VERSION=1.9
 
 # Never prompts the user for choices on installation/configuration of packages
 ENV DEBIAN_FRONTEND noninteractive
@@ -57,7 +57,6 @@ RUN set -ex \
     && pip install pyasn1 \
     && pip install azure-storage \
     && pip install apache-airflow[crypto,postgres,hive,jdbc]==$AIRFLOW_VERSION \
-    && pip install JayDeBeApi==0.2.0\
     && apt-get purge --auto-remove -yqq $buildDeps \
     && apt-get clean \
     && rm -rf \
@@ -66,7 +65,8 @@ RUN set -ex \
         /var/tmp/* \
         /usr/share/man \
         /usr/share/doc \
-        /usr/share/doc-base
+        /usr/share/doc-base \
+        /root/.cache/pip/*
 
 COPY script/entrypoint.sh /entrypoint.sh
 COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg

@@ -5,7 +5,7 @@ services:
     image: marcusrehm/airflow-dev-env
     build: .
       args:
-        - AIRFLOW_VERSION: 1.8.2
+        - AIRFLOW_VERSION: 1.9
         - AIRFLOW_HOME: /usr/local/airflow
     ports:
       - 8080:8080

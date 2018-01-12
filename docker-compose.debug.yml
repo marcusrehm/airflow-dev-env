@@ -6,7 +6,7 @@ services:
     build:
       context: .
       args: 
-        AIRFLOW_VERSION: 1.8.2
+        AIRFLOW_VERSION: 1.9
         AIRFLOW_HOME: /usr/local/airflow
       dockerfile: Dockerfile
     ports:
