@@ -1,7 +1,7 @@
 # Apache Airflow develop environment
 #### A simple container to run Apache Airflow on Windows machines.
 
-The main goal is create a minimal setup where Airflow can be hosted on Windows machines. This docker image has Airflow 1.8.2 installed using `pip install apache-airflow[crypto,postgres,hive,jdbc]` and running with SequentialExecutor and `SQLite` as backend.
+The main goal is create a minimal setup where Airflow can be hosted on Windows machines. This docker image has Airflow 1.9 installed using `pip install apache-airflow[crypto,postgres,hive,jdbc]` and running with SequentialExecutor and `SQLite` as backend.
 
 Tested on Windows 7, Windows 10 and Ubuntu 14.02 LTS.
 
