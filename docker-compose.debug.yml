@@ -3,6 +3,8 @@ version: '2.1'
 services:
   airflow-dev-env:
     image: marcusrehm/airflow-dev-env
+    env_file:
+      - .env
     build:
       context: .
       args: 

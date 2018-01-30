@@ -3,7 +3,9 @@
 AIRFLOW_HOME="/usr/local/airflow"
 CMD="airflow"
 
-: ${FERNET_KEY:=$(python -c "from cryptography.fernet import Fernet; FERNET_KEY = Fernet.generate_key().decode(); print(FERNET_KEY)")}
+if [[ -z "${FERNET_KEY}" ]]; then
+    : ${FERNET_KEY:=$(python -c "from cryptography.fernet import Fernet; FERNET_KEY = Fernet.generate_key().decode(); print(FERNET_KEY)")}
+fi
 
 # Install custome python package if requirements.txt is present
 if [ -e "/requirements.txt" ]; then

@@ -17,6 +17,30 @@ ENV LC_MESSAGES en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
+#Install ORACLE INSTANT CLIENT 11g
+RUN apt-get update
+RUN apt-get install libaio-dev -y \
+    libaio1 \
+    libaio-dev \
+    build-essential \
+    unzip \
+    curl
+RUN mkdir -p opt/oracle
+COPY instantclient-basic-linux.x64-11.2.0.4.0.zip /tmp
+COPY instantclient-sdk-linux.x64-11.2.0.4.0.zip /tmp
+RUN unzip /tmp/instantclient-basic-linux.x64-11.2.0.4.0.zip -d /opt/oracle
+RUN unzip /tmp/instantclient-sdk-linux.x64-11.2.0.4.0.zip -d /opt/oracle
+RUN mv /opt/oracle/instantclient_11_2 /opt/oracle/instantclient
+RUN ln -s /opt/oracle/instantclient/libclntsh.so.11.1 /opt/oracle/instantclient/libclntsh.so
+RUN ln -s /opt/oracle/instantclient/libocci.so.11.1 /opt/oracle/instantclient/libocci.so
+RUN rm -rf /tmp/instantclient*
+ENV ORACLE_HOME="/opt/oracle/instantclient"
+ENV OCI_HOME="/opt/oracle/instantclient"
+ENV OCI_LIB_DIR="/opt/oracle/instantclient"
+ENV OCI_INCLUDE_DIR="/opt/oracle/instantclient/sdk/include"
+ENV LD_LIBRARY_PATH="/opt/oracle/instantclient:$ORACLE_HOME"
+RUN echo '/opt/oracle/instantclient/' | tee -a /etc/ld.so.conf.d/oracle_instant_client.conf && ldconfig
+
 # Install Java
 RUN apt-get update \
     && apt-get install -y openjdk-7-jre \
@@ -56,6 +80,7 @@ RUN set -ex \
     && pip install ndg-httpsclient \
     && pip install pyasn1 \
     && pip install azure-storage \
+    && pip install cx_oracle \
     && pip install apache-airflow[crypto,postgres,hive,jdbc]==$AIRFLOW_VERSION \
     && apt-get purge --auto-remove -yqq $buildDeps \
     && apt-get clean \
