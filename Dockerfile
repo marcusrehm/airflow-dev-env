@@ -18,6 +18,7 @@ ENV LC_ALL en_US.UTF-8
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
 #Install ORACLE INSTANT CLIENT 11g
+ENV NLS_LANG .AL32UTF8
 RUN apt-get update
 RUN apt-get install libaio-dev -y \
     libaio1 \
