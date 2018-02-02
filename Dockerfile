@@ -81,6 +81,9 @@ RUN set -ex \
     && pip install pyasn1 \
     && pip install azure-storage \
     && pip install cx_oracle \
+    && pip install sklearn \
+    && pip install tensorflow \
+    && pip install keras \
     && pip install apache-airflow[crypto,postgres,hive,jdbc]==$AIRFLOW_VERSION \
     && apt-get purge --auto-remove -yqq $buildDeps \
     && apt-get clean \
