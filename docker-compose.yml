@@ -12,5 +12,7 @@ services:
     ports:
       - 8080:8080
     volumes:
+      - /home/marcus/airflow/lib/:/usr/local/airflow/lib:rw
+      - /home/marcus/airflow/plugins/:/usr/local/airflow/lib:rw
       - /home/marcus/airflow/dags/:/usr/local/airflow/dags:rw
       - /home/marcus/airflow/db/:/usr/local/airflow/db:rw

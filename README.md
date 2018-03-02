@@ -10,7 +10,9 @@ Tested on Windows 7, Windows 10 and Ubuntu 14.02 LTS.
 This project is based on [docker-airflow](https://github.com/puckel/docker-airflow) image which is a great work.
 
 # Getting Started
-The image has two volumes:
+The image has four volumes:
+- `usr/local/airflow/lib`: Should be mapped to the directory in your host machine where are the modules you use in dags are located.
+- `usr/local/airflow/plugins`: Should be mapped to the plugins directory in your host machine.
 - `usr/local/airflow/dags`: Should be mapped to the dags directory in your host machine.
 - `usr/local/airflow/db`: Used to store `SQLite` database. If you need to remove the container or rebuild image, data (variable, connections, etc) used to develop and test is saved. 
 - Fernet Key can be configured in `.env` file. If it not exits a new key will be created.
