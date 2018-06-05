@@ -86,6 +86,7 @@ RUN set -ex \
     && pip install tensorflow \
     && pip install keras \
     && pip install h5py \
+    && pip install pytest \
     && pip install apache-airflow[crypto,postgres,hive,jdbc]==$AIRFLOW_VERSION \
     && apt-get purge --auto-remove -yqq $buildDeps \
     && apt-get clean \
