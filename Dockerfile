@@ -81,6 +81,9 @@ RUN set -ex \
     && pip install ndg-httpsclient \
     && pip install pyasn1 \
     && pip install azure-storage \
+    && pip install azure-mgmt-resource==1.2.2 \
+    && pip install azure-mgmt-datalake-store==0.4.0 \
+    && pip install azure-datalake-store==0.0.19 \
     && pip install cx_oracle \
     && pip install sklearn \
     && pip install tensorflow \
