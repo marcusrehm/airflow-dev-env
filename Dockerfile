@@ -41,6 +41,7 @@ ENV OCI_LIB_DIR="/opt/oracle/instantclient"
 ENV OCI_INCLUDE_DIR="/opt/oracle/instantclient/sdk/include"
 ENV LD_LIBRARY_PATH="/opt/oracle/instantclient:$ORACLE_HOME"
 RUN echo '/opt/oracle/instantclient/' | tee -a /etc/ld.so.conf.d/oracle_instant_client.conf && ldconfig
+ENV PYMSSQL_BUILD_WITH_BUNDLED_FREETDS=1
 
 # Install Java
 RUN apt-get update \
@@ -90,6 +91,9 @@ RUN set -ex \
     && pip install keras \
     && pip install h5py \
     && pip install pytest \
+    && pip install pysmbclient \
+    && pip install pysmb \
+    && pip install pymssql \
     && pip install apache-airflow[crypto,postgres,hive,jdbc]==$AIRFLOW_VERSION \
     && apt-get purge --auto-remove -yqq $buildDeps \
     && apt-get clean \
