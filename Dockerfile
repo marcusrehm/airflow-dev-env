@@ -4,6 +4,8 @@ LABEL Name=marcusrehm/airflow-dev-env Version=0.0.1 AUTHOR=MarcusRehm
 ARG AIRFLOW_HOME=/usr/local/airflow
 ARG AIRFLOW_VERSION=1.9
 
+ENV PYMSSQL_BUILD_WITH_BUNDLED_FREETDS=1
+
 # Never prompts the user for choices on installation/configuration of packages
 ENV DEBIAN_FRONTEND noninteractive
 ENV TERM linux
@@ -15,7 +17,14 @@ ENV LC_ALL en_US.UTF-8
 ENV LC_CTYPE en_US.UTF-8
 ENV LC_MESSAGES en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
-ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
+
+# Install Java
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+RUN mkdir -p /usr/share/man/man1mkdir -p /usr/share/man/man1 \
+    && apt-get update \
+    && apt-get install -y openjdk-8-jre \
+    && update-alternatives --config java \
+    && rm -rf /var/lib/apt/lists/*
 
 #Install ORACLE INSTANT CLIENT 11g
 ENV NLS_LANG .AL32UTF8
@@ -41,13 +50,6 @@ ENV OCI_LIB_DIR="/opt/oracle/instantclient"
 ENV OCI_INCLUDE_DIR="/opt/oracle/instantclient/sdk/include"
 ENV LD_LIBRARY_PATH="/opt/oracle/instantclient:$ORACLE_HOME"
 RUN echo '/opt/oracle/instantclient/' | tee -a /etc/ld.so.conf.d/oracle_instant_client.conf && ldconfig
-ENV PYMSSQL_BUILD_WITH_BUNDLED_FREETDS=1
-
-# Install Java
-RUN apt-get update \
-    && apt-get install -y openjdk-7-jre \
-    && update-alternatives --config java \
-    && rm -rf /var/lib/apt/lists/*
 
 RUN set -ex \
     && buildDeps=' \
@@ -94,6 +96,8 @@ RUN set -ex \
     && pip install pysmbclient \
     && pip install pysmb \
     && pip install pymssql \
+    && pip install pyarrow \
+    && pip install mlflow==0.7.0 \
     && pip install apache-airflow[crypto,postgres,hive,jdbc]==$AIRFLOW_VERSION \
     && apt-get purge --auto-remove -yqq $buildDeps \
     && apt-get clean \
